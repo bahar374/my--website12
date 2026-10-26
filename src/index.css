@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Vazirmatn (self-hosted, no external font service) ---------- */
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('/fonts/Vazirmatn-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('/fonts/Vazirmatn-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('/fonts/Vazirmatn-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('/fonts/Vazirmatn-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('/fonts/Vazirmatn-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    @apply bg-warm font-sans text-ink antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-forest;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-honey ring-offset-2 ring-offset-cream;
+  }
+
+  ::selection {
+    background: #f5ac18;
+    color: #073d2c;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-pad {
+    @apply py-12 sm:py-16 lg:py-20;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-line bg-warm px-4 py-1.5 text-xs font-semibold text-forest sm:text-sm;
+  }
+
+  .btn-base {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-all duration-300 ease-soft sm:text-base;
+  }
+
+  .btn-primary {
+    @apply btn-base bg-forest text-warm shadow-soft hover:bg-forest-deep hover:shadow-card active:translate-y-px;
+  }
+
+  .btn-outline {
+    @apply btn-base border border-forest/25 bg-warm/70 text-forest hover:border-forest hover:bg-forest/5;
+  }
+
+  .btn-honey {
+    @apply btn-base bg-honey text-forest-deep shadow-honey hover:bg-honey-light active:translate-y-px;
+  }
+
+  .card-surface {
+    @apply rounded-xl2 border border-line bg-warm shadow-soft transition-all duration-300 ease-soft;
+  }
+
+  .hex-pattern {
+    background-image: url('/patterns/honeycomb-gold.svg');
+    background-repeat: repeat;
+  }
+
+  .hex-pattern-soft {
+    background-image: url('/patterns/honeycomb-green.svg');
+    background-repeat: repeat;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ---------- scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- motion preferences ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
