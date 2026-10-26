@@ -39,7 +39,7 @@ export default function NewsletterForm({ compact = false, className = '' }: News
   return (
     <form onSubmit={handleSubmit} noValidate className={`w-full ${className}`}>
       <div
-        className={`flex flex-col gap-2 rounded-full border border-line bg-warm p-1.5 sm:flex-row sm:items-center ${
+        className={`flex flex-col gap-2 rounded-full border border-line bg-white p-1.5 sm:flex-row sm:items-center ${
           compact ? '' : 'shadow-soft'
         }`}
       >

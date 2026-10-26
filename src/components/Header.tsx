@@ -28,21 +28,21 @@ export default function Header() {
       <div className="container-x flex h-[4.5rem] items-center justify-between gap-3 sm:h-20">
         <Logo />
 
-        <nav aria-label="فهرست اصلی" className="hidden items-center gap-7 lg:flex">
+        <nav aria-label="فهرست اصلی" className="hidden items-center gap-5 md:flex lg:gap-8">
           {navLinks.map((link) => {
             const isActive = link.label === 'خانه'
             return (
               <a
-                key={link.href}
+                key={link.label}
                 href={link.href}
                 aria-current={isActive ? 'page' : undefined}
-                className={`relative py-2 text-sm font-semibold transition-colors duration-200 hover:text-forest ${
-                  isActive ? 'text-forest' : 'text-ink/80'
+                className={`relative py-2 text-sm font-medium transition-colors duration-200 hover:text-honey ${
+                  isActive ? 'text-honey' : 'text-forest'
                 }`}
               >
                 {link.label}
                 <span
-                  className={`absolute -bottom-0.5 right-0 h-[3px] rounded-full bg-honey transition-all duration-300 ease-soft ${
+                  className={`absolute -bottom-0.5 right-0 h-[2px] rounded-full bg-honey transition-all duration-300 ease-soft ${
                     isActive ? 'w-full' : 'w-0'
                   }`}
                 />
@@ -51,25 +51,23 @@ export default function Header() {
           })}
         </nav>
 
-        <div className="flex items-center gap-1.5 sm:gap-2.5">
-          <span aria-hidden="true" className="hidden h-10 w-10 items-center justify-center rounded-full border border-line text-forest/70 sm:inline-flex">
-            <SearchIcon className="h-[1.15rem] w-[1.15rem]" />
+        <div className="flex items-center gap-3.5 text-forest sm:gap-5">
+          <span aria-hidden="true" className="hidden text-forest transition-colors hover:text-honey-dark sm:inline-flex">
+            <SearchIcon className="h-[1.35rem] w-[1.35rem]" />
           </span>
-          <span aria-hidden="true" className="hidden h-10 w-10 items-center justify-center rounded-full border border-line text-forest/70 sm:inline-flex">
-            <UserIcon className="h-[1.15rem] w-[1.15rem]" />
+          <span aria-hidden="true" className="hidden text-forest transition-colors hover:text-honey-dark sm:inline-flex">
+            <UserIcon className="h-[1.35rem] w-[1.35rem]" />
           </span>
 
           <a
             href="#products"
             aria-label={count > 0 ? `سبد خرید، ${faCount} کالا` : 'سبد خرید'}
-            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-warm text-forest transition-colors duration-200 hover:border-honey hover:text-honey-dark"
+            className="relative inline-flex text-forest transition-colors duration-200 hover:text-honey-dark"
           >
-            <CartIcon className="h-[1.15rem] w-[1.15rem]" />
-            {count > 0 ? (
-              <span className="absolute -left-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-honey px-1 text-[0.65rem] font-bold text-forest-deep">
-                {faCount}
-              </span>
-            ) : null}
+            <CartIcon className="h-[1.35rem] w-[1.35rem]" />
+            <span className="absolute -right-2.5 -top-2 inline-flex h-[1.1rem] min-w-[1.1rem] items-center justify-center rounded-full bg-honey px-1 text-[0.6rem] font-bold leading-none text-white">
+              {faCount}
+            </span>
           </a>
 
           <button
@@ -78,15 +76,15 @@ export default function Header() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             aria-label={menuOpen ? 'بستن فهرست' : 'باز کردن فهرست'}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-warm text-forest lg:hidden"
+            className="inline-flex text-forest md:hidden"
           >
-            {menuOpen ? <CloseIcon className="h-[1.15rem] w-[1.15rem]" /> : <MenuIcon className="h-[1.15rem] w-[1.15rem]" />}
+            {menuOpen ? <CloseIcon className="h-[1.35rem] w-[1.35rem]" /> : <MenuIcon className="h-[1.35rem] w-[1.35rem]" />}
           </button>
         </div>
       </div>
 
       {menuOpen ? (
-        <nav id="mobile-menu" aria-label="فهرست موبایل" className="border-t border-line bg-warm lg:hidden">
+        <nav id="mobile-menu" aria-label="فهرست موبایل" className="border-t border-line bg-warm md:hidden">
           <ul className="container-x flex flex-col py-2">
             {navLinks.map((link) => (
               <li key={link.href}>

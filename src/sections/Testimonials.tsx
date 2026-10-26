@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import ScrollReveal from '../components/ScrollReveal'
 import { ChevronLeftIcon, ChevronRightIcon, StarIcon } from '../components/Icons'
-import { Bee } from '../components/Decor'
+import { LeafSprig } from '../components/Decor'
 import { testimonials } from '../data/products'
 
 function usePerView() {
@@ -10,7 +10,7 @@ function usePerView() {
   useEffect(() => {
     const update = () => {
       const width = window.innerWidth
-      setPerView(width >= 1024 ? 3 : width >= 640 ? 2 : 1)
+      setPerView(width >= 900 ? 3 : width >= 640 ? 2 : 1)
     }
     update()
     window.addEventListener('resize', update)
@@ -33,56 +33,78 @@ export default function Testimonials() {
     setPage((value) => Math.min(value, maxPage))
   }, [maxPage])
 
+  const goPrev = () => setPage((value) => Math.max(0, value - 1))
+  const goNext = () => setPage((value) => Math.min(maxPage, value + 1))
+
   return (
-    <section id="testimonials" className="section-pad bg-cream">
+    <section id="testimonials" className="bg-cream pb-12 pt-2 sm:pb-16 lg:pb-20">
       <div className="container-x">
         <ScrollReveal>
           <header className="mx-auto max-w-2xl text-center">
             <div className="flex items-center justify-center gap-3">
-              <Bee className="h-7 w-9" />
+              <LeafSprig className="h-6 w-12 -scale-x-100 text-honey" />
               <h2 className="text-section">نظرات مشتریان</h2>
-              <Bee className="h-7 w-9 -scale-x-100" />
+              <LeafSprig className="h-6 w-12 text-honey" />
             </div>
-            <p className="mt-3 text-sm leading-7 text-ink/70 sm:text-base">
-              چند نمونه از تجربه‌هایی که برایمان نوشته‌اند.
-            </p>
           </header>
         </ScrollReveal>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-          {visible.map((item) => (
-            <article
-              key={item.id}
-              className="card-surface flex h-full animate-rise-in flex-col gap-3 p-5 text-center sm:p-6"
-            >
-              <div className="flex items-center justify-center gap-3">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-forest text-xs font-bold text-warm">
-                  {item.initials}
-                </span>
-                <span className="text-sm font-bold text-forest sm:text-base">{item.name}</span>
-              </div>
-
-              <div className="flex items-center justify-center gap-0.5 text-honey" aria-hidden="true">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <StarIcon key={star} filled={star <= item.rating} className="h-4 w-4" />
-                ))}
-              </div>
-              <span className="sr-only">امتیاز {item.rating.toLocaleString('fa-IR')} از ۵</span>
-
-              <p className="text-sm leading-7 text-ink/80">{item.text}</p>
-            </article>
-          ))}
-        </div>
-
-        <div className="mt-8 flex items-center justify-center gap-4">
+        <div className="relative mt-8">
           <button
             type="button"
-            onClick={() => setPage((value) => Math.max(0, value - 1))}
+            onClick={goPrev}
             disabled={current === 0}
             aria-label="نظر قبلی"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-warm text-forest transition-colors duration-200 hover:border-honey disabled:cursor-not-allowed disabled:opacity-40"
+            className="absolute -right-4 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-warm text-forest transition-colors duration-200 hover:border-honey hover:text-honey-dark disabled:cursor-not-allowed disabled:opacity-40 min-[900px]:-right-9 min-[900px]:inline-flex xl:-right-14"
           >
             <ChevronRightIcon className="h-5 w-5" />
+          </button>
+
+          <div className="grid gap-4 sm:grid-cols-2 min-[900px]:grid-cols-3 min-[900px]:gap-5">
+            {visible.map((item) => (
+              <article
+                key={item.id}
+                className="flex animate-rise-in flex-col gap-3 rounded-[1.1rem] border border-line bg-white p-5 text-right shadow-soft"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest/10 text-[0.7rem] font-bold text-forest">
+                    {item.initials}
+                  </span>
+                  <span className="text-sm font-bold text-forest sm:text-[0.95rem]">{item.name}</span>
+                </div>
+
+                <p className="text-sm leading-7 text-ink/80">{item.text}</p>
+
+                <div className="mt-auto flex items-center gap-0.5 text-honey" aria-hidden="true">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <StarIcon key={star} filled={star <= item.rating} className="h-4 w-4" />
+                  ))}
+                </div>
+                <span className="sr-only">امتیاز {item.rating.toLocaleString('fa-IR')} از ۵</span>
+              </article>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={goNext}
+            disabled={current === maxPage}
+            aria-label="نظر بعدی"
+            className="absolute -left-4 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-warm text-forest transition-colors duration-200 hover:border-honey hover:text-honey-dark disabled:cursor-not-allowed disabled:opacity-40 min-[900px]:-left-9 min-[900px]:inline-flex xl:-left-14"
+          >
+            <ChevronLeftIcon className="h-5 w-5" />
+          </button>
+        </div>
+
+        <div className="mt-7 flex items-center justify-center gap-4">
+          <button
+            type="button"
+            onClick={goPrev}
+            disabled={current === 0}
+            aria-label="نظر قبلی"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line bg-warm text-forest transition-colors duration-200 hover:border-honey disabled:cursor-not-allowed disabled:opacity-40 min-[900px]:hidden"
+          >
+            <ChevronRightIcon className="h-4 w-4" />
           </button>
 
           <div className="flex items-center gap-2">
@@ -91,10 +113,10 @@ export default function Testimonials() {
                 key={index}
                 type="button"
                 onClick={() => setPage(index)}
-                aria-label={`نمایش نظرات ${index + 1}`}
+                aria-label={`گروه نظر ${(index + 1).toLocaleString('fa-IR')}`}
                 aria-current={index === current}
                 className={`h-2.5 rounded-full transition-all duration-300 ease-soft ${
-                  index === current ? 'w-7 bg-honey' : 'w-2.5 bg-forest/25 hover:bg-forest/40'
+                  index === current ? 'w-2.5 bg-honey' : 'w-2.5 bg-line hover:bg-honey/50'
                 }`}
               />
             ))}
@@ -102,18 +124,14 @@ export default function Testimonials() {
 
           <button
             type="button"
-            onClick={() => setPage((value) => Math.min(maxPage, value + 1))}
+            onClick={goNext}
             disabled={current === maxPage}
             aria-label="نظر بعدی"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-warm text-forest transition-colors duration-200 hover:border-honey disabled:cursor-not-allowed disabled:opacity-40"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line bg-warm text-forest transition-colors duration-200 hover:border-honey disabled:cursor-not-allowed disabled:opacity-40 min-[900px]:hidden"
           >
-            <ChevronLeftIcon className="h-5 w-5" />
+            <ChevronLeftIcon className="h-4 w-4" />
           </button>
         </div>
-
-        <p className="mt-4 text-center text-xs text-ink/55 sm:text-sm">
-          نظرات بالا نمونه هستند و بازخورد واقعی مشتریان محسوب نمی‌شوند.
-        </p>
       </div>
     </section>
   )

@@ -1,6 +1,5 @@
 import Hero from '../sections/Hero'
 import BenefitsBar from '../sections/BenefitsBar'
-import Categories from '../sections/Categories'
 import BestSellers from '../sections/BestSellers'
 import StoryBanner from '../sections/StoryBanner'
 import GiftBanner from '../sections/GiftBanner'
@@ -13,7 +12,6 @@ export default function Home() {
     <>
       <Hero />
       <BenefitsBar />
-      <Categories />
       <BestSellers />
       <StoryBanner />
       <GiftBanner />

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CartIcon, CheckIcon, HeartIcon, StarIcon } from './Icons'
+import { CartIcon, HeartIcon, StarIcon } from './Icons'
 import { useCart } from '../context/CartContext'
 import type { Product } from '../data/products'
 
@@ -15,8 +15,8 @@ export default function ProductCard({ product }: ProductCardProps) {
   const priceLabel = product.price.toLocaleString('fa-IR')
 
   return (
-    <article className="card-surface group flex h-full flex-col overflow-hidden p-3 hover:-translate-y-1 hover:border-honey/60 hover:shadow-card sm:p-4">
-      <div className="relative overflow-hidden rounded-card bg-cream">
+    <article className="group flex h-full flex-col rounded-[1.25rem] border border-line bg-white p-3 shadow-[0_16px_34px_-28px_rgba(16,76,54,0.45)] transition-all duration-300 ease-soft hover:-translate-y-1 hover:border-honey/60 hover:shadow-card sm:p-4">
+      <div className="relative overflow-hidden rounded-[1rem] bg-cream">
         <img
           src={product.image}
           alt={product.alt}
@@ -26,7 +26,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         />
 
         {product.badge ? (
-          <span className="absolute right-3 top-3 rounded-full bg-honey px-3 py-1 text-[0.7rem] font-bold text-forest-deep shadow-honey">
+          <span className="absolute right-2.5 top-2.5 rounded-full bg-honey px-2.5 py-1 text-[0.66rem] font-bold text-forest-deep shadow-[0_8px_16px_-10px_rgba(217,143,10,0.8)] sm:text-[0.7rem]">
             {product.badge}
           </span>
         ) : null}
@@ -36,46 +36,39 @@ export default function ProductCard({ product }: ProductCardProps) {
           onClick={() => setLiked((value) => !value)}
           aria-pressed={liked}
           aria-label={liked ? `حذف ${product.name} از علاقه‌مندی‌ها` : `افزودن ${product.name} به علاقه‌مندی‌ها`}
-          className={`absolute left-3 top-3 inline-flex h-9 w-9 items-center justify-center rounded-full border border-line bg-warm/90 transition-colors duration-200 ${
-            liked ? 'text-honey' : 'text-forest/60 hover:text-honey'
+          className={`absolute left-2.5 top-2.5 inline-flex h-8 w-8 items-center justify-center rounded-full bg-warm/85 transition-colors duration-200 ${
+            liked ? 'text-honey' : 'text-forest/55 hover:text-honey'
           }`}
         >
-          <HeartIcon filled={liked} className="h-[1.15rem] w-[1.15rem]" />
+          <HeartIcon filled={liked} className="h-[1.05rem] w-[1.05rem]" />
         </button>
       </div>
 
-      <div className="mt-3 flex flex-1 flex-col sm:mt-4">
-        <h3 className="text-base font-bold sm:text-lg">{product.name}</h3>
-        <p className="mt-1 text-xs text-ink/60 sm:text-sm">{product.category}</p>
-        <p className="mt-2 text-xs leading-6 text-ink/80 sm:text-sm">{product.description}</p>
+      <div className="mt-3 flex flex-1 flex-col items-center text-center">
+        <h3 className="text-base font-extrabold text-forest sm:text-[1.05rem]">{product.name}</h3>
+        <p className="mt-1 text-[0.72rem] text-ink/60 sm:text-xs">{product.category}</p>
 
-        <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-ink/70 sm:text-sm">
-          <CheckIcon className="h-4 w-4 shrink-0 text-forest-soft" />
-          وزن: {product.weight}
-        </p>
-
-        <div className="mt-2 flex items-center gap-2">
-          <span className="flex items-center gap-0.5 text-honey" aria-hidden="true">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <StarIcon key={star} filled={star <= Math.round(product.rating)} className="h-4 w-4" />
-            ))}
-          </span>
-          <span className="text-xs font-semibold text-ink/70">{ratingLabel}</span>
-          <span className="sr-only">امتیاز {ratingLabel} از ۵</span>
+        <div className="mt-2 flex items-center justify-center gap-0.5 text-honey" aria-hidden="true">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <StarIcon key={star} filled={star <= Math.round(product.rating)} className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+          ))}
         </div>
+        <span className="sr-only">امتیاز {ratingLabel} از ۵</span>
 
-        <p className="mt-3 text-base font-extrabold text-forest sm:text-lg">
-          {priceLabel} <span className="text-xs font-semibold sm:text-sm">تومان</span>
+        <p className="mt-2 text-[0.95rem] font-extrabold text-forest sm:text-base">
+          {priceLabel} <span className="text-[0.7rem] font-semibold sm:text-xs">تومان</span>
         </p>
 
-        <button
-          type="button"
-          onClick={() => add({ id: product.id, name: product.name, price: product.price })}
-          className="btn-primary mt-3 w-full sm:mt-4"
-        >
-          <CartIcon className="h-[1.15rem] w-[1.15rem]" />
-          افزودن به سبد خرید
-        </button>
+        <div className="mt-auto w-full pt-3">
+          <button
+            type="button"
+            onClick={() => add({ id: product.id, name: product.name, price: product.price })}
+            className="btn-primary w-full gap-2 px-3 py-2.5 text-[0.78rem] sm:text-[0.85rem]"
+          >
+            <CartIcon className="h-4 w-4" />
+            افزودن به سبد خرید
+          </button>
+        </div>
       </div>
     </article>
   )

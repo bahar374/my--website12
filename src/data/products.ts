@@ -2,37 +2,21 @@ export type Benefit = {
   id: string
   title: string
   text: string
-  icon: 'tag' | 'truck' | 'shield' | 'quality'
+  icon: 'tag' | 'truck' | 'shield' | 'payment' | 'quality'
 }
 
 export const benefits: Benefit[] = [
-  { id: 'price', title: 'قیمت مناسب', text: 'بهترین کیفیت با قیمت منصفانه', icon: 'tag' },
-  { id: 'shipping', title: 'ارسال سریع', text: 'ارسال سفارش‌ها در سراسر ایران', icon: 'truck' },
-  { id: 'origin', title: 'تضمین اصالت محصول', text: 'توجه به اصالت و کیفیت محصولات', icon: 'shield' },
-  { id: 'packaging', title: 'کیفیت محصول', text: 'بسته‌بندی مناسب و اطلاعات شفاف', icon: 'quality' },
-]
-
-export type Category = {
-  id: string
-  name: string
-  image: string
-  alt: string
-}
-
-export const categories: Category[] = [
-  { id: 'gon', name: 'عسل گون', image: '/images/cat-gon.jpg', alt: 'شیشه عسل گون روی سطح چوبی' },
-  { id: 'konar', name: 'عسل کنار', image: '/images/cat-konar.jpg', alt: 'دو شیشه عسل کنار در طبیعت' },
-  { id: 'mountain', name: 'عسل کوهستانی', image: '/images/cat-kuhistani.jpg', alt: 'شیشه‌های عسل کوهستانی با برگ‌های سبز' },
-  { id: 'chandgiah', name: 'عسل چندگیاه', image: '/images/cat-chandgiah.jpg', alt: 'شیشه‌های عسل چندگیاه روی سینی چوبی' },
-  { id: 'acacia', name: 'عسل اقاقیا', image: '/images/cat-acacia.jpg', alt: 'شیشه عسل اقاقیا در فضای گرم خانه' },
-  { id: 'gift', name: 'پک‌های هدیه', image: '/images/cat-gift.jpg', alt: 'پک هدیه عسل با چند شیشه و عسل‌خوری' },
+  { id: 'quality', title: 'تضمین کیفیت', text: 'تست و کنترل کیفی محصول', icon: 'quality' },
+  { id: 'payment', title: 'پرداخت مطمئن', text: 'از درگاه‌های معتبر بانکی', icon: 'payment' },
+  { id: 'origin', title: 'تضمین اصالت و سلامت', text: 'تضمین اصالت و سلامت محصول', icon: 'shield' },
+  { id: 'shipping', title: 'ارسال سریع', text: 'به سراسر ایران', icon: 'truck' },
+  { id: 'price', title: 'قیمت مناسب', text: 'بهترین قیمت تضمینی', icon: 'tag' },
 ]
 
 export type Product = {
   id: string
   name: string
   category: string
-  description: string
   weight: string
   price: number
   rating: number
@@ -44,22 +28,20 @@ export type Product = {
 /** قیمت‌ها نمونه هستند؛ برای فروش واقعی این آرایه را ویرایش کنید. */
 export const products: Product[] = [
   {
-    id: 'chandgiah',
-    name: 'عسل چندگیاه',
-    category: 'عسل چند گیاه کوهی',
-    description: 'عطر گیاهان کوهی با طعمی گرم و ماندگار',
+    id: 'mountain',
+    name: 'عسل کوهستانی',
+    category: 'عسل طبیعی کوهستان',
     weight: '۱ کیلوگرم',
-    price: 2990000,
-    rating: 4.8,
-    image: '/images/prod-chandgiah.jpg',
-    alt: 'شیشه عسل چندگیاه با گل تزئینی',
+    price: 2950000,
+    rating: 4.9,
+    image: '/images/prod-kuhistani.jpg',
+    alt: 'عسل کوهستانی در کنار شان عسل و برگ‌ها',
     badge: 'پرفروش',
   },
   {
     id: 'gon',
     name: 'عسل گون',
-    category: 'عسل مزارع کوهستانی',
-    description: 'طعمی ملایم و روشن، مناسب مصرف روزانه',
+    category: 'عسل طبیعی مزارع کوهستانی',
     weight: '۹۰۰ گرم',
     price: 1890000,
     rating: 4.7,
@@ -69,8 +51,7 @@ export const products: Product[] = [
   {
     id: 'acacia',
     name: 'عسل اقاقیا',
-    category: 'عسل تک‌گل اقاقیا',
-    description: 'شفاف و لطیف با شیرینی آرام',
+    category: 'عسل طبیعی و خالص',
     weight: '۹۰۰ گرم',
     price: 2450000,
     rating: 5,
@@ -78,15 +59,14 @@ export const products: Product[] = [
     alt: 'شیشه عسل اقاقیا در فضای باز',
   },
   {
-    id: 'mountain',
-    name: 'عسل کوهستانی',
-    category: 'عسل چراگاه‌های بلند',
-    description: 'برداشتشده از مراتع بلند و خنک',
+    id: 'chandgiah',
+    name: 'عسل چندگیاه',
+    category: 'عسل طبیعی چندگیاه',
     weight: '۱ کیلوگرم',
-    price: 2950000,
-    rating: 4.9,
-    image: '/images/prod-kuhistani.jpg',
-    alt: 'عسل کوهستانی در کنار شان عسل و برگ‌ها',
+    price: 2990000,
+    rating: 4.8,
+    image: '/images/prod-chandgiah.jpg',
+    alt: 'شیشه عسل چندگیاه با گل تزئینی',
   },
 ]
 
@@ -104,22 +84,22 @@ export const testimonials: Testimonial[] = [
     id: 't1',
     name: 'محبوبه رضایی',
     initials: 'م.ر',
-    text: 'بسته‌بندی مرتب بود و سفارش به‌خوبی به دستم رسید.',
+    text: 'عسل واقعاً طبیعی و خوشمزه بود. حتماً دوباره سفارش می‌دم.',
     rating: 5,
   },
   {
     id: 't2',
     name: 'علی محمدی',
     initials: 'ع.م',
-    text: 'طعم عسل برای من دلنشین بود و تجربه خرید خوبی داشتم.',
+    text: 'بسته‌بندی عالی و ارسال سریع، ممنون از عسلستان.',
     rating: 5,
   },
   {
     id: 't3',
     name: 'سارا احمدی',
     initials: 'س.ا',
-    text: 'تنوع محصولات باعث شد انتخاب راحت‌تری داشته باشم.',
-    rating: 4,
+    text: 'کیفیت عسل عالی بود و طعمش خیلی طبیعی و دلچسبه.',
+    rating: 5,
   },
   {
     id: 't4',
@@ -151,8 +131,8 @@ export type BrandFeature = {
 }
 
 export const brandFeatures: BrandFeature[] = [
-  { id: 'quality', title: 'توجه به کیفیت محصول', icon: 'quality' },
-  { id: 'transparent', title: 'اطلاعات شفاف', icon: 'leaf' },
+  { id: 'natural', title: 'محصولات کاملاً طبیعی', icon: 'quality' },
+  { id: 'additive', title: 'بدون افزودنی و نگهدارنده', icon: 'leaf' },
   { id: 'local', title: 'حمایت از زنبورداران محلی', icon: 'honeycomb' },
-  { id: 'packaging', title: 'بسته‌بندی مناسب', icon: 'shield' },
+  { id: 'origin', title: 'تضمین کیفیت و اصالت', icon: 'shield' },
 ]

@@ -26,6 +26,16 @@ export function TagIcon(props: IconProps) {
   )
 }
 
+export function CreditCardIcon(props: IconProps) {
+  return (
+    <svg {...line(props)}>
+      <rect x="2.6" y="5" width="18.8" height="14" rx="2.4" />
+      <path d="M2.6 10h18.8" />
+      <path d="M6.4 14.6h3.4" />
+    </svg>
+  )
+}
+
 export function TruckIcon(props: IconProps) {
   return (
     <svg {...line(props)}>

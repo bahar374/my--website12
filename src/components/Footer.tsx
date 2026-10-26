@@ -1,16 +1,7 @@
 import Logo from './Logo'
-import NewsletterForm from './NewsletterForm'
-import { Bee, BeeFlight, FlowerCluster, ForestSilhouette, WoodenHive } from './Decor'
-import {
-  InstagramIcon,
-  MailIcon,
-  MapPinIcon,
-  PhoneIcon,
-  TelegramIcon,
-  WhatsappIcon,
-  YoutubeIcon,
-} from './Icons'
-import { brand, contact, footerNote, legalLinks, quickLinks, socials } from '../data/site'
+import { Bee, FlowerCluster, ForestSilhouette } from './Decor'
+import { InstagramIcon, MailIcon, MapPinIcon, PhoneIcon, TelegramIcon, WhatsappIcon, YoutubeIcon } from './Icons'
+import { contact, footerNote, footerQuote, legalLinks, quickLinks, socials } from '../data/site'
 
 const socialIcons = {
   instagram: InstagramIcon,
@@ -21,34 +12,20 @@ const socialIcons = {
 
 export default function Footer() {
   return (
-    <footer id="site-footer" className="relative overflow-hidden bg-forest-deep pt-16 text-warm sm:pt-20">
-      {/* organic transition from the light section above */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-12 text-mint sm:h-16">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="h-full w-full">
-          <path
-            d="M0 0h1440v30c-150 34-268-14-420 6s-262 32-420 6S168 12 0 46Z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-
+    <footer id="site-footer" className="relative overflow-hidden bg-forest-deep pt-14 text-warm sm:pt-16">
       {/* decorative nature layer */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="hex-pattern absolute inset-x-0 top-0 h-32 opacity-[0.10]" />
+        <div className="hex-pattern absolute inset-x-0 top-0 h-32 opacity-[0.08]" />
         <ForestSilhouette className="absolute inset-x-0 bottom-0 h-24 w-full text-[#0d5138] opacity-90" />
-        <WoodenHive className="absolute bottom-16 right-4 hidden h-32 w-28 opacity-30 lg:block" />
-        <FlowerCluster className="absolute -bottom-8 left-1/2 hidden h-28 w-36 -translate-x-1/2 opacity-45 lg:block" />
-        <BeeFlight className="absolute bottom-28 left-6 h-12 w-40 -scale-x-100 opacity-50" />
-        <Bee className="absolute bottom-36 left-28 h-9 w-11 animate-bee-drift opacity-90" />
+        <FlowerCluster className="absolute -bottom-4 right-2 h-24 w-32 opacity-70 sm:right-8 sm:h-28 sm:w-36" />
       </div>
 
       <div className="container-x relative">
-        <div className="grid gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          {/* column 1 — brand */}
-          <div>
+        <div className="grid gap-9 pb-10 sm:grid-cols-2 min-[900px]:grid-cols-[1.1fr_0.85fr_0.95fr_1.15fr] min-[900px]:gap-8">
+          {/* brand — left column on desktop */}
+          <div className="order-1 min-[900px]:order-4">
             <Logo variant="light" />
-            <p className="mt-4 max-w-xs text-sm leading-7 text-warm/75">{brand.description}</p>
-            <div className="mt-5 flex items-center gap-2.5">
+            <div className="mt-5 flex items-center gap-3">
               {socials.map((social) => {
                 const Icon = socialIcons[social.icon]
                 return (
@@ -56,47 +33,27 @@ export default function Footer() {
                     key={social.label}
                     href={social.href}
                     aria-label={social.label}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-warm/20 text-warm/80 transition-colors duration-200 hover:border-honey hover:text-honey"
+                    className="text-honey/85 transition-colors duration-200 hover:text-honey-light"
                   >
-                    <Icon className="h-[1.15rem] w-[1.15rem]" />
+                    <Icon className="h-5 w-5" />
                   </a>
                 )
               })}
             </div>
           </div>
 
-          {/* column 2 — quick links */}
-          <nav aria-label="دسترسی سریع">
-            <h3 className="text-base font-bold text-warm sm:text-lg">دسترسی سریع</h3>
-            <span className="mt-3 block h-0.5 w-10 rounded-full bg-honey" />
-            <ul className="mt-4 space-y-2.5">
-              {quickLinks.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="inline-flex items-center gap-2 text-sm text-warm/75 transition-colors duration-200 hover:text-honey"
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-honey/70" />
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* column 3 — contact */}
-          <div id="contact">
-            <h3 className="text-base font-bold text-warm sm:text-lg">تماس با ما</h3>
-            <span className="mt-3 block h-0.5 w-10 rounded-full bg-honey" />
-            <ul className="mt-4 space-y-3 text-sm text-warm/75">
-              <li className="flex items-start gap-2.5">
-                <PhoneIcon className="mt-0.5 h-4 w-4 shrink-0 text-honey" />
+          {/* contact — right column on desktop */}
+          <div id="contact" className="order-2">
+            <h3 className="text-base font-bold text-honey sm:text-lg">تماس با ما</h3>
+            <ul className="mt-4 space-y-3 text-sm text-warm/80">
+              <li className="flex items-center gap-2.5">
+                <PhoneIcon className="h-4 w-4 shrink-0 text-honey" />
                 <a href={contact.phoneHref} dir="ltr" className="transition-colors hover:text-honey">
                   {contact.phoneLabel}
                 </a>
               </li>
-              <li className="flex items-start gap-2.5">
-                <MailIcon className="mt-0.5 h-4 w-4 shrink-0 text-honey" />
+              <li className="flex items-center gap-2.5">
+                <MailIcon className="h-4 w-4 shrink-0 text-honey" />
                 <a href={contact.emailHref} dir="ltr" className="transition-colors hover:text-honey">
                   {contact.emailLabel}
                 </a>
@@ -106,33 +63,53 @@ export default function Footer() {
                 <span>{contact.addressLabel}</span>
               </li>
             </ul>
-            <p className="mt-4 rounded-card border border-warm/15 bg-warm/5 p-3 text-xs leading-6 text-warm/65">
-              {contact.note}
-            </p>
           </div>
 
-          {/* column 4 — newsletter */}
-          <div>
-            <h3 className="text-base font-bold text-warm sm:text-lg">خبرنامه عسلستان</h3>
-            <span className="mt-3 block h-0.5 w-10 rounded-full bg-honey" />
-            <p className="mt-4 text-sm leading-7 text-warm/75">
-              برای آگاهی از محصول تازه و پیشنهادهای ویژه، ایمیل خود را وارد کنید.
-            </p>
-            <div className="mt-4 [&_button]:bg-honey [&_button]:text-forest-deep [&_button:hover]:bg-honey-light [&_form>div]:border-transparent">
-              <NewsletterForm compact />
+          {/* quick access — middle column on desktop */}
+          <nav aria-label="دسترسی سریع" className="order-3">
+            <h3 className="text-base font-bold text-warm sm:text-lg">دسترسی سریع</h3>
+            <ul className="mt-4 space-y-2.5">
+              {quickLinks.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-warm/80 transition-colors duration-200 hover:text-honey"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* decorative bee + quote — far right on desktop */}
+          <div aria-hidden="true" className="order-4 min-[900px]:order-1">
+            <svg viewBox="0 0 220 60" className="h-10 w-40 overflow-visible text-honey/50" fill="none">
+              <path
+                d="M4 40C52 40 86 14 130 18c28 2 44 18 74 12"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeDasharray="4 6"
+                strokeLinecap="round"
+              />
+            </svg>
+            <div className="mt-1 flex items-center gap-3">
+              <Bee className="h-10 w-12 animate-bee-drift" />
+              <p className="text-sm font-bold text-honey">{footerQuote}</p>
             </div>
           </div>
         </div>
 
-        <div className="relative border-t border-warm/15 py-6">
-          <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-right">
-            <p className="text-xs text-warm/70 sm:text-sm">{footerNote}</p>
-            <ul className="flex items-center gap-5 text-xs text-warm/70 sm:text-sm">
-              {legalLinks.map((link) => (
-                <li key={link.label}>
+        <div className="relative border-t border-warm/15 py-5">
+          <div className="flex flex-col items-center justify-between gap-3 text-center text-xs text-warm/70 sm:flex-row sm:text-sm">
+            <p>{footerNote}</p>
+            <ul className="flex items-center gap-3">
+              {legalLinks.map((link, index) => (
+                <li key={link.label} className="flex items-center gap-3">
                   <a href={link.href} className="transition-colors duration-200 hover:text-honey">
                     {link.label}
                   </a>
+                  {index < legalLinks.length - 1 ? <span className="text-warm/30">|</span> : null}
                 </li>
               ))}
             </ul>

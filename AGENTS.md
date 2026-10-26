@@ -23,7 +23,7 @@ docker compose -f docker-compose.base44.yml up -d --build
 
 ## Architecture
 - `src/pages/Home.tsx` — composes the page; every block below the header lives in `src/sections/`
-  (`Hero`, `BenefitsBar`, `Categories`, `BestSellers`, `StoryBanner`, `GiftBanner`, `BrandStory`,
+  (`Hero`, `BenefitsBar`, `BestSellers`, `StoryBanner`, `GiftBanner`, `BrandStory`,
   `Testimonials`, `NewsletterSection`)
 - `src/components/` — `Header`, `Footer`, `ProductCard`, `NewsletterForm`, `CartToast`, `Logo`,
   `ScrollReveal`, `Icons` (line icons), `Decor` (cartoon bee, hive, forest silhouettes, flowers)
@@ -41,8 +41,20 @@ docker compose -f docker-compose.base44.yml up -d --build
 ## Verifying
 - `docker compose -f docker-compose.base44.yml exec -T web npm run typecheck` — TypeScript check.
 - `... exec -T web npm run build` — production build check.
-- Content anchors used by the in-page CTAs: `#categories`, `#products`, `#brand-story`, `#newsletter`,
-  `#contact`. If a section id is renamed, update the CTAs and `src/data/site.ts` with it.
-- Placeholder content that must be replaced before any real launch: prices/weights in
-  `src/data/products.ts`, the testimonials (sample text, labelled as such on the page), and the contact
-  details in `src/data/site.ts` (labelled as sample in the footer).
+- Content anchors used by the in-page CTAs: `#top`, `#benefits`, `#products`, `#brand-story`,
+  `#testimonials`, `#newsletter`, `#contact`. If a section id is renamed, update the CTAs and
+  `src/data/site.ts` with it.
+- Placeholder content that must be replaced before any real launch: prices/weights/products in
+  `src/data/products.ts`, the testimonials there (sample text), and the contact details in
+  `src/data/site.ts`. Both files flag this in comments; the design keeps the page itself clean.
+
+## Layout quirks
+- The hero follows the supplied design reference: full-bleed `hero-landscape.jpg` (1672×704) with the
+  copy pinned left, a transparent `bee-flying.png` with `hero-fly`/`wing-flap` animations, a dashed
+  flight trail and a cream wave masking the section bottom. Below 820px the copy centers and the photo
+  crops into the jar/hive layers.
+- Sections switch to their desktop composition at custom breakpoints (`min-[820px]` for the benefits
+  row, `min-[900px]` for the 4-up product grid, 3-column story and 4-column footer), matching the
+  1024px reference mockup on tablets.
+- The footer column order is mirrored on purpose (brand left, contact right with the bee/quote
+  artwork) to match the reference mockup.

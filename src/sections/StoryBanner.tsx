@@ -4,7 +4,7 @@ import { ChevronLeftIcon } from '../components/Icons'
 
 export default function StoryBanner() {
   return (
-    <section className="bg-cream pb-7 sm:pb-8">
+    <section className="bg-cream pb-6 sm:pb-8">
       <div className="container-x">
         <ScrollReveal>
           <article className="relative overflow-hidden rounded-xl2 border border-line bg-warm shadow-soft">
@@ -15,22 +15,21 @@ export default function StoryBanner() {
                   alt="زنبوردار در حال بررسی شان عسل در چراگاه"
                   loading="lazy"
                   decoding="async"
-                  className="h-56 w-full object-cover sm:h-72 md:h-full md:min-h-[20rem]"
+                  className="h-56 w-full object-cover sm:h-72 md:h-full md:min-h-[19rem]"
                 />
-                <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-l from-transparent to-cream/25" />
               </div>
 
               <div className="relative order-2 flex flex-col justify-center gap-4 p-6 sm:p-8 md:order-1 md:p-10 lg:p-12">
-                <BeeFlight className="pointer-events-none absolute left-6 top-4 hidden h-12 w-40 opacity-50 lg:block" />
+                <BeeFlight className="pointer-events-none absolute left-6 top-6 hidden h-11 w-36 opacity-55 lg:block" />
                 <h2 className="flex items-center gap-2 text-section">
                   عسل، هدیه‌ای از دل طبیعت
                   <Bee className="h-7 w-9 shrink-0" />
                 </h2>
                 <p className="max-w-md text-sm leading-7 text-ink/75 sm:text-base sm:leading-8">
-                  پشت هر قطره عسل، دنیایی از تلاش زنبورها، زیبایی گل‌ها و شگفتی طبیعت قرار دارد.
+                  با هر خرید، بخشی از این طبیعت زیبا را حمایت می‌کنید.
                 </p>
                 <a href="#brand-story" className="btn-primary self-start">
-                  داستان ما را بخوانید
+                  بیشتر بخوانید
                   <ChevronLeftIcon className="h-4 w-4" />
                 </a>
               </div>
