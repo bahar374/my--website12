@@ -49,10 +49,16 @@ docker compose -f docker-compose.base44.yml up -d --build
   `src/data/site.ts`. Both files flag this in comments; the design keeps the page itself clean.
 
 ## Layout quirks
-- The hero follows the supplied design reference: a full-bleed clip `public/videos/hero-scroll.mp4`
-  (1080×608) layered over `hero-landscape.jpg` (poster + fallback), with the copy pinned left, a
-  transparent `bee-flying.png` with `hero-fly`/`wing-flap` animations, a dashed flight trail and a
-  cream wave masking the section bottom. Below 820px the copy centers.
+- The hero *is* the clip: `public/videos/hero-scroll.mp4` (1080×608), with the copy pinned left and a
+  cream wave masking the section bottom. The section uses `aspect-[16/9]`, the clip's own ratio, so no
+  part of the frame is cropped and the still frame and the film always line up. The poster is
+  `public/images/hero-poster.jpg`, a frame exported from the clip itself — never swap in a differently
+  framed still here, or the poster and the first video frame visibly jump.
+- The clip already contains the animated bee, so the old `bee-flying.png` overlay and its dashed flight
+  trail were removed from the hero (`hero-landscape.jpg`, `bee-flying.png` and the `hero-fly` /
+  `wing-flap` / `trail` keyframes are still used elsewhere / kept in the config).
+- Below 820px the copy centers and the hero becomes tall (`max(640px,168vw)`), so the landscape clip
+  center-crops its sides there.
 - The hero clip is **scroll-scrubbed**: `Hero.tsx` maps scroll progress through the section
   (`scrollY / hero height`, clamped 0–1) onto `video.currentTime`, so the clip is never playing — it
   zooms exactly as far as the visitor scrolls and reverses on the way up. `prefers-reduced-motion`
