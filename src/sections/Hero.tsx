@@ -11,7 +11,6 @@ const motes = [
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null)
-  const bgRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -21,12 +20,10 @@ export default function Hero() {
     const update = () => {
       ticking = false
       const hero = heroRef.current
-      const bg = bgRef.current
-      if (!hero || !bg) return
-      const y = Math.min(window.scrollY, hero.offsetHeight)
-      bg.style.transform = `translate3d(0, ${y * 0.1}px, 0)`
+      if (!hero) return
 
       // The hero clip is scrubbed by scroll: progress through the section plays the zoom.
+      // Nothing is translated, so the section never drifts down while the page scrolls.
       const video = videoRef.current
       if (video && video.duration) {
         const progress = Math.min(Math.max(window.scrollY / hero.offsetHeight, 0), 1)
@@ -52,9 +49,8 @@ export default function Hero() {
       className="relative w-full overflow-hidden bg-[#cfe0e8] aspect-[16/9] max-[820px]:aspect-auto max-[820px]:h-[max(640px,168vw)]"
     >
       <div
-        ref={bgRef}
         aria-hidden="true"
-        className="absolute inset-x-0 -top-[3%] bottom-0 bg-[url('/images/hero-poster.jpg')] bg-cover bg-center will-change-transform"
+        className="absolute inset-0 bg-[url('/images/hero-poster.jpg')] bg-cover bg-center"
       >
         <video
           ref={videoRef}
