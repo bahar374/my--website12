@@ -49,10 +49,17 @@ docker compose -f docker-compose.base44.yml up -d --build
   `src/data/site.ts`. Both files flag this in comments; the design keeps the page itself clean.
 
 ## Layout quirks
-- The hero follows the supplied design reference: full-bleed `hero-landscape.jpg` (1672×704) with the
-  copy pinned left, a transparent `bee-flying.png` with `hero-fly`/`wing-flap` animations, a dashed
-  flight trail and a cream wave masking the section bottom. Below 820px the copy centers and the photo
-  crops into the jar/hive layers.
+- The hero follows the supplied design reference: a full-bleed clip `public/videos/hero-scroll.mp4`
+  (1080×608) layered over `hero-landscape.jpg` (poster + fallback), with the copy pinned left, a
+  transparent `bee-flying.png` with `hero-fly`/`wing-flap` animations, a dashed flight trail and a
+  cream wave masking the section bottom. Below 820px the copy centers.
+- The hero clip is **scroll-scrubbed**: `Hero.tsx` maps scroll progress through the section
+  (`scrollY / hero height`, clamped 0–1) onto `video.currentTime`, so the clip is never playing — it
+  zooms exactly as far as the visitor scrolls and reverses on the way up. `prefers-reduced-motion`
+  leaves it on the first frame. The source clip was 1080×1920 with baked-in black bars; it was
+  cropped and re-encoded with
+  `docker run --rm -v $PWD/public/videos:/v linuxserver/ffmpeg -i hero.mp4 -vf crop=1080:608:0:656 -an …`
+  (short GOP for snappy seeking) — re-crop with ffmpeg if the clip is ever replaced.
 - Sections switch to their desktop composition at custom breakpoints (`min-[820px]` for the benefits
   row, `min-[900px]` for the 4-up product grid, 3-column story and 4-column footer), matching the
   1024px reference mockup on tablets.

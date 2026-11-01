@@ -12,6 +12,7 @@ const motes = [
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null)
   const bgRef = useRef<HTMLDivElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -24,6 +25,13 @@ export default function Hero() {
       if (!hero || !bg) return
       const y = Math.min(window.scrollY, hero.offsetHeight)
       bg.style.transform = `translate3d(0, ${y * 0.1}px, 0)`
+
+      // The hero clip is scrubbed by scroll: progress through the section plays the zoom.
+      const video = videoRef.current
+      if (video && video.duration) {
+        const progress = Math.min(Math.max(window.scrollY / hero.offsetHeight, 0), 1)
+        video.currentTime = progress * video.duration
+      }
     }
 
     const onScroll = () => {
@@ -32,6 +40,7 @@ export default function Hero() {
       window.requestAnimationFrame(update)
     }
 
+    update()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -45,18 +54,20 @@ export default function Hero() {
       <div
         ref={bgRef}
         aria-hidden="true"
-        className="absolute inset-x-0 -top-[3%] bottom-0 bg-[url('/images/hero-landscape.jpg')] bg-cover bg-center will-change-transform max-[820px]:bg-[position:30%_0] max-[820px]:bg-[length:auto_70%]"
-      />
-
-      {/* cropped foreground pieces, mobile only */}
-      <div
-        aria-hidden="true"
-        className="absolute bottom-[6%] left-[-4%] z-[3] hidden aspect-[640/330] w-[60%] bg-[url('/images/hero-landscape.jpg')] bg-no-repeat bg-[length:261%_auto] bg-[position:0_98%] [mask-image:linear-gradient(90deg,#000_80%,transparent)] [-webkit-mask-image:linear-gradient(90deg,#000_80%,transparent)] max-[820px]:block"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute right-[-3%] top-[34%] z-[3] hidden aspect-[560/520] w-[46%] bg-[url('/images/hero-landscape.jpg')] bg-no-repeat bg-[length:298.5%_auto] bg-[position:100%_0] [mask-image:linear-gradient(270deg,#000_82%,transparent)] [-webkit-mask-image:linear-gradient(270deg,#000_82%,transparent)] max-[820px]:block"
-      />
+        className="absolute inset-x-0 -top-[3%] bottom-0 bg-[url('/images/hero-landscape.jpg')] bg-cover bg-center will-change-transform"
+      >
+        <video
+          ref={videoRef}
+          src="/videos/hero-scroll.mp4"
+          poster="/images/hero-landscape.jpg"
+          muted
+          playsInline
+          preload="auto"
+          tabIndex={-1}
+          disablePictureInPicture
+          className="absolute inset-0 block h-full w-full object-cover"
+        />
+      </div>
 
       {motes.map((mote) => (
         <i
